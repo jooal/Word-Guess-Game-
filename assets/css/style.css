@@ -1,0 +1,44 @@
+.title {
+    text-align: center;
+    font-family: 'Patua One', cursive;
+    color: white;
+}
+
+.intro {
+    text-align: center;
+    font-family:'Patua One', cursive;
+    color: white; 
+}
+
+img {
+    width: 250px;
+    height: 250px;
+    border-style: solid;
+    border-color: blue;
+}
+h2 {
+    font-family: 'Fira Sans Condensed', sans-serif;
+    color: white;
+}
+
+h3 {
+    font-family: 'Fira Sans Condensed', sans-serif;
+    color: white;
+}
+
+h4 {
+    color: white;
+}
+
+.container {
+    text-align: center;
+}
+
+body {
+    background-color: black;
+    margin-bottom: 30px;
+}
+
+.jumbotron {
+    background-color: black;
+}
