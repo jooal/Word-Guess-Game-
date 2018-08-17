@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
     <title>Document</title>
 </head>
-<body>
+<body onload="startGame()">
     <div class="jumbotron jumbotron-fluid">
         <h1 class="title">Will Ferrell Movie Game</h1> 
             <h3 class="intro">Guess the title of the movie based on the picture provided.</h3> 
@@ -23,7 +23,7 @@
     <div class="container" style="margin-top:50px">
         <div class="row">
             <div class ="col-md-4">
-                <img class="movie-img" src="#">
+                <img id="movie-img" src="#">
             </div>
             <div class = "col-md-8">
                 <h3>Press Any Key to Get Started!</h3>
@@ -35,15 +35,16 @@
                 <h4 id="wins"></h4>
                 <h4>Losses: </h4>
                 <h4 id="losses"></h4>
+                <h4 id="reveal-answer"></h4>
                 <hr>
                 <h4 id="blank-spaces"></h4>
-                <button id="start" onclick="startGame()">Click to Play</button>
+                <h4></h4>
                
             </div>
         </div>
     </div>
 
-    <script src="./assets/javascript/game.js"></script>
+    <script src="./assets/javascript/gamev3.js"></script>
 
   
 

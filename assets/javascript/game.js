@@ -14,11 +14,20 @@ var movieChoices= [ //creating the word choice array
 
 var images = [ //create array for pictures 
     "./assets/images/stepbrothers.jpg",
-]
+    "./assets/images/elf.jpg",
+    "./assets/images/dadyshome.jpg",
+    "./assets/images/old school.jpg",
+    "./assets/images/gethard.jpg",
+    "./assets/images/The Campaign Movie.jpg",
+    "./assets/images/anchorman.jpg",
+    "./assets/images/strangerthanfiction.jpg",
+    "./assets/images/superstar.jpg",
+    "./assets/images/talladeganights.jpg"
+];
 
 
 var randomMovie = ""; //random movie selected 
-var letterIsInWord= [];// letters in the random movie selected 
+var lettersInWord= [];// letters in the random movie selected 
 var blanks = 0; //the number of blanks to match the letters -->numbblanks
 var rightGuess = [] //stores right letters guessed --> blankssuccess
 var wrongGuess = [];//stores wrong letters guessed
@@ -30,10 +39,8 @@ var losses = 0;  // counts losses
 var guessesLeft = 9; //counts guesses left 
 
 //images wrap this in a function, then call it in startGame or create an array?? 
-function imageMatch (){
-   var setImage = movieChoices.indexOf(randomMovie) //evaluates to index of random movie selected 
+//function matchImage(element){}
 
-};
 // imageMatch(movieChoices[0])= ("./assets/images/stepbrothers.jpg")
 // imageMatch(movieChoices[1])=("./assets/images/elf.jpg")
 // imageMatch(movieChoices[2])=("./assets/images/dadyshome.jpg")  
@@ -42,14 +49,13 @@ function imageMatch (){
 
 function startGame () { //creating function startGame
     guessesLeft=9; //starts player off with 9 guesses
-    rightGuess=[]; // sets wrongGuess at zero/blank
+    wrongGuess=[]; // sets wrongGuess at zero/blank
     rightGuess=[]; //sets rightGuess at zero/blank
 
         randomMovie = movieChoices[Math.floor(Math.random()*movieChoices.length)]; //selects random movie from moivechoices array
-        //imageMatch();
-        letterIsInWord = randomMovie.split (""); //splits random movie into characters
-        console.log(letterIsInWord)
-        blanks = letterIsInWord.length; //set number of blansk to number of letters 
+        lettersInWord = randomMovie.split (""); //splits random movie into characters
+        console.log(lettersInWord)
+        blanks = lettersInWord.length; //set number of blansk to number of letters 
         console.log(randomMovie); //log the movie chosen
         console.log(blanks); //log the number of letters in the word chosen
 
@@ -67,26 +73,28 @@ function startGame () { //creating function startGame
 //now have to check players letters 
 function checkLetters (letterGuessed){
     var isGuessCorrect = false; // this is boolean set to false to prove if letter is in word or not
-    for (var i = 0; i < letterIsInWord; i++){ //loop will run as long as [i] is less than the length of letters in the movie being guessed
-        if (letterIsInWord[i] === letterGuessed) { // if the letter index of the randomMovie selected is = to the letter guessed, letterIsInWord is true 
+    for (var i = 0; i < lettersInWord; i++){ //loop will run as long as [i] is less than the length of letters in the movie being guessed
+        if (lettersInWord[i] === letterGuessed) { // if the letter index of the randomMovie selected is = to the letter guessed, letterIsInWord is true 
             isGuessCorrect = true;
-            console.log("You guessed a right letter" + letterIsInWord[i])
+            console.log("You guessed a right letter" + lettersInWord[i])
+            console.log(isGuessCorrect); //store if letter is in word
 
         }
     }
 
-// if (letterIsInWord) { //if letterIsInWOrd is true then ...
-//     for (let i=0; i<blanks; i++) { //...run this loop
-//         if (randomMovie[i]=== letterIsInWord) {//if the letter guessed is correct, then the letter gets stored in rightGuess
-//             rightGuess[i]=letter; 
-//         }
-//         console.log(rightGuess); //store the right guess
-//     }
-// } else { //if the letter is wrong 
-//     guessesLeft --; //subtract a guess
-//     wrongGuess.push(letterGuessed); //push will add the letter guessed to the wrongGuess pile displayed for user
-// }
-//     console.log(wrongGuess);//store the wrong guess 
+//
+ if (isGuessCorrect) { //if isGuessCorrect is true then ...
+  for (let i=0; i<blanks; i++) { //...run this loop
+    if (letterGuessed === lettersInWord) {//if the letter guessed is lettersInWord, then the letter gets stored in rightGuess
+            rightGuess.push(letterGuessed); 
+         }
+       console.log(rightGuess); //store the right guess
+     }
+ } else { //if isGuessCorrect is not true
+      guessesLeft --; //subtract a guess
+      wrongGuess.push(letterGuessed); //push will add the letter guessed to the wrongGuess pile displayed for user
+}
+     console.log(wrongGuess);//store the wrong guess 
 }
 
 function roundComplete (){
@@ -94,18 +102,18 @@ function roundComplete (){
     document.getElementById("guesses-left").innerHTML = guessesLeft; //updates guesses left
     document.getElementById("wrong-guesses").innerHTML = wrongGuess.join(" ");//updates wrong guesses with letter and space
 
-    console.log(letterIsInWord); //store if letter is in word
-    console.log(rightGuess);//store if guess was right
-    if (letterIsInWord.join(" ") === rightGuess.join(" ")) { //if letter is in the word = right guess then add a win
+    
+
+    if (lettersInWord.join(" ") === rightGuess.join(" ")) { //if letter is in the word = right guess then add a win
         wins ++
         alert("You win!");
         document.getElementById("wins").innerHTML= wins++; //updates win in html
-        startGame();//start game over
+        roundComplete(); //calls function roundComplete which will update all the scores
     }else if (guessesLeft === 0) { //no guesses left, you lose
         document.getElementById("guesses-left").innerHTML=losses++; //run out of guesses, add to losses
         document.getElementById("wrong-guess").innerHTML=" ";
         alert("You don't have anymore guesses left");
-       
+        roundComplete(); //calls function roundComplete which will update all the scores
     }
 };
 
@@ -125,5 +133,6 @@ document.onkeyup= function(event) {
 
 var reloadGame = function(event) {
     var startButton = document.getElementById("start");
-    startGame();}
+    startGame();
+}
 
