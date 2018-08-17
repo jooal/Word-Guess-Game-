@@ -1,27 +1,44 @@
 
 var movieChoices= [ //creating the word choice array
-    "Step Brothers", 
-    "Elf",
-    "Daddy's Home",
-    "Old School",
-    "Get Hard",
-    "The Campaign",
-    "Anchorman",
-    "Stranger than Fiction",
-    "Superstar",
-    "Talladega Nights"
+    "Step Brothers", //0
+    "Elf", //1
+    "Daddy's Home",//2
+    "Old School",//3
+    "Get Hard",//4
+    "The Campaign",//5
+    "Anchorman",//6
+    "Stranger than Fiction",//7
+    "Superstar",//8
+    "Talladega Nights"//9
     ];
+
+var images = [
+    "./assets/images/stepbrothers.jpg",
+]
+
 
 var randomMovie = ""; //random movie selected 
 var letterIsInWord= [];// letters in the random movie selected 
 var blanks = 0; //the number of blanks to match the letters -->numbblanks
 var rightGuess = [] //stores right letters guessed --> blankssuccess
 var wrongGuess = [];//stores wrong letters guessed
+letterGuessed = [];//users guess
 
 
-var wins = 0;
-var losses = 0; 
-var guessesLeft = 9;
+var wins = 0; //counts wins
+var losses = 0;  // counts losses
+var guessesLeft = 9; //counts guesses left 
+
+//images wrap this in a function, then call it in startGame or create an array?? 
+function imageMatch (){
+   var setImage = movieChoices.indexOf(randomMovie) //evaluates to index of random movie selected 
+
+};
+// imageMatch(movieChoices[0])= ("./assets/images/stepbrothers.jpg")
+// imageMatch(movieChoices[1])=("./assets/images/elf.jpg")
+// imageMatch(movieChoices[2])=("./assets/images/dadyshome.jpg")
+
+
 
 function startGame () { //creating function startGame
     guessesLeft=9; //starts player off with 9 guesses
@@ -29,7 +46,9 @@ function startGame () { //creating function startGame
     rightGuess=[]; //sets rightGuess at zero/blank
 
         randomMovie = movieChoices[Math.floor(Math.random()*movieChoices.length)]; //selects random movie from moivechoices array
+        //imageMatch();
         letterIsInWord = randomMovie.split (""); //splits random movie into characters
+        console.log(letterIsInWord)
         blanks = letterIsInWord.length; //set number of blansk to number of letters 
         console.log(randomMovie); //log the movie chosen
         console.log(blanks); //log the number of letters in the word chosen
@@ -43,34 +62,37 @@ function startGame () { //creating function startGame
         document.getElementById("wrong-guesses").innerHTML = wrongGuess.join(" "); //joins the wrong guessed letters together to display for user
 };
 
+
+
 //now have to check players letters 
-function checkLetters (letter){
-    var letterInWord = false; // this is boolean set to false to prove if letter is in word or not
-    for (let i=0; i< blanks; i++){ //loop will run as long as [i] is less than the length of letters in the movie being guessed
-        if (randomMovie[i]=== letter) { // if the letter index of the randomMovie selected is = to the letter guessed, letterIsInWord is true 
-            letterInWord = true;
+function checkLetters (letterGuessed){
+    var isGuessCorrect = false; // this is boolean set to false to prove if letter is in word or not
+    for (var i = 0; i < letterIsInWord; i++){ //loop will run as long as [i] is less than the length of letters in the movie being guessed
+        if (letterIsInWord[i] === letterGuessed) { // if the letter index of the randomMovie selected is = to the letter guessed, letterIsInWord is true 
+            isGuessCorrect = true;
+            console.log("You guessed a right letter" + letterIsInWord[i])
 
         }
     }
 
-if (letterInWord) { //if letterIsInWOrd is true then ...
-    for (let i=0; i<blanks; i++) { //...run this loop
-        if (randomMovie[i]=== letter) {//if the letter guessed is correct, then the letter gets stored in rightGuess
-            rightGuess[i]=letter; 
-        }
-        console.log(rightGuess); //store the right guess
-    }
-} else { //if the letter is wrong 
-    guessesLeft --; //subtract a guess
-    wrongGuess.push(letter); //push will add the letter guessed to the wrongGuess pile displayed for user
+// if (letterIsInWord) { //if letterIsInWOrd is true then ...
+//     for (let i=0; i<blanks; i++) { //...run this loop
+//         if (randomMovie[i]=== letterIsInWord) {//if the letter guessed is correct, then the letter gets stored in rightGuess
+//             rightGuess[i]=letter; 
+//         }
+//         console.log(rightGuess); //store the right guess
+//     }
+// } else { //if the letter is wrong 
+//     guessesLeft --; //subtract a guess
+//     wrongGuess.push(letterGuessed); //push will add the letter guessed to the wrongGuess pile displayed for user
+// }
+//     console.log(wrongGuess);//store the wrong guess 
 }
-    console.log(wrongGuess);//store the wrong guess 
-
 
 function roundComplete (){
     document.getElementById("blank-spaces").innerHTML = rightGuess.join(" ");//replaces "blank-spaces" with the value of rightGuess 
     document.getElementById("guesses-left").innerHTML = guessesLeft; //updates guesses left
-    document.getElementById("wrong-guess").innerHTML = wrongGuess.join(" ");//updates wrong guesses with letter and space
+    document.getElementById("wrong-guesses").innerHTML = wrongGuess.join(" ");//updates wrong guesses with letter and space
 
     console.log(letterIsInWord); //store if letter is in word
     console.log(rightGuess);//store if guess was right
@@ -88,17 +110,20 @@ function roundComplete (){
 };
 
   // This function is run whenever the user presses a key. this is the actual order of the game functions
-document.onkeyup= function () {
-    var letterGuessed = event.keycode;
-        if (letterGuessed=== number) {
-            alert ("That is not a letter. Try again")
-        } else {
-        checkLetters(letterGuessed);} //calls function checkLetters and applies it to letterGuessed
-         console.log(letterGuessed);
-    roundComplete(); //calls function roundComplete which will update all the scores
-};
+document.onkeyup= function(event) {
+    var letterGuessed = event.key;
+    console.log(letterGuessed);
+        //if (letterGuessed=== number) { //if player types number
+        //    alert ("That is not a letter. Try again")
+        //} else {
+        checkLetters(letterGuessed); //calls function checkLetters and applies it to letterGuessed
+        
+    // roundComplete(); //calls function roundComplete which will update all the scores
+}
 
-var reloadGame = function() {}
+
+
+var reloadGame = function(event) {
     var startButton = document.getElementById("start");
     startGame();}
 
