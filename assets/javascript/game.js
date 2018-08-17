@@ -12,7 +12,7 @@ var movieChoices= [ //creating the word choice array
     "Talladega Nights"//9
     ];
 
-var images = [
+var images = [ //create array for pictures 
     "./assets/images/stepbrothers.jpg",
 ]
 
@@ -36,7 +36,7 @@ function imageMatch (){
 };
 // imageMatch(movieChoices[0])= ("./assets/images/stepbrothers.jpg")
 // imageMatch(movieChoices[1])=("./assets/images/elf.jpg")
-// imageMatch(movieChoices[2])=("./assets/images/dadyshome.jpg")
+// imageMatch(movieChoices[2])=("./assets/images/dadyshome.jpg")  
 
 
 
