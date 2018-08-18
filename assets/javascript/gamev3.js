@@ -33,7 +33,7 @@ var gameStatus = false;
 var randomMovie = Math.floor(Math.random() * movieChoices.length);
 
 var movieChosen = movieChoices[randomMovie].word;
-var movieImage = movieChoices[randomMovie].image
+var movieImage = movieChoices[randomMovie].image;
 
 //set lettersRemaining to the length of the movie title chosen 
 var lettersRemaining = movieChosen.length;
@@ -47,7 +47,7 @@ document.onkeyup = function (event){
     if(gameStatus) {
         letterCheck(event);
     } else {
-    //start over 
+    //start process over via init
         init();
     }
 };
@@ -70,7 +70,8 @@ function startGame(){
       //reset
       displayImage();
   
-      displayAnswer();
+
+      startGame();
 }
 
 //users guessing choices to eliminate possiblity of pressing non letter keys
@@ -84,7 +85,6 @@ function letterCheck(event) {
 
 //Check whether the guess is correct
 var winScore = 0;
-var losses=0;
 function correctGuessCheck(event) {
     if (movieChosen.indexOf(event.key) > -1) {
         //if guess is correct, run correctGuess function.
@@ -96,13 +96,13 @@ function correctGuessCheck(event) {
 }
 //if the key the player guesses is correct then run function addCorrectLetter
 function correctGuess(event) {
-    if (answerArray.indexOf(event.key.toUpperCase) < 0) {
+    if (answerArray.indexOf(event.key.toUpperCase()) < 0) {
         addCorrectLetter(event);
     }
 }
 
 function addCorrectLetter(event) {
-    for (var j = 0; j < movieChosen.length; j++) {
+    for (var j = 0; j < movieChosen.length; j++) { //while j is set to zero and is less than the length of the array do the stuff inside until it is the length of the array
         //If guess matches an existing letter in the answer.
         if (event.key === movieChosen[j]) {
             answerArray[j] = event.key.toUpperCase();
@@ -140,23 +140,18 @@ function addIncorrectLetter(event) {
     //show guessesLeft
     displayGuessesLeft();
     if (guessesLeft === 0) {
-        losses ++;
-        displayLoss();
         displayAnswer();
     }
 }
 
-//define functions
+//define functions to display info 
 
 function displayWins() {
     var winsDisplay = document.querySelector("#wins");
     winsDisplay.textContent = winScore;
 }
 
-function displayLoss (){
-    var lossDisplay = document.querySelector("#losses");
-    lossDisplay.textContent=losses;
-}
+
 //display letters guessed so far that are wrong
 function displayGuessesMade() {
     var guessesMadeDisplay = document.querySelector("#wrong-guesses");
@@ -220,6 +215,7 @@ function init() {
     }
 
     //reset
+
     lettersRemaining = movieChosen.length;
 
     //reset
@@ -236,7 +232,9 @@ function init() {
     //reset
     displayImage();
 
-    displayAnswer();
+
+
+    
 
 
 }
