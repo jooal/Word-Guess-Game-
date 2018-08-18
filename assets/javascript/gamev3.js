@@ -1,30 +1,30 @@
 var movieChoices= [ //creating the word choice array
-    {word:"step brothers", 
-     image: "./assets/images/stepbrothers.jpg"},//0
+    {word:"jaws", 
+     image: "./assets/images/jaws.jpg"},//0
      
      {word: "elf",
      image: "./assets/images/elf.jpg"},//1
 
-     {word: "old school",
-     image:"./assets/images/old school.jpg" },//2
+     {word: "ted",
+     image:"./assets/images/tedjpg" },//2
 
-     {word:"get hard",
-     image:  "./assets/images/gethard.jpg"},
+     {word:"zootopia",
+     image:  "./assets/images/zootopia.jpg"},
 
-     {word: "the campaign",
-     image:  "./assets/images/The Campaign Movie.jpg"},
+     {word: "gladiator",
+     image:  "./assets/images/gladiator.jpg"},
 
      {word: "anchorman", 
      image:"./assets/images/anchorman.jpg" },
 
-     {word: "stranger than fiction",
-      image: "./assets/images/strangerthanfiction.jpg"},
+     {word: "avatar",
+      image: "./assets/images/avatar.jpg"},
 
     {word: "superstar",
     image: "./assets/images/superstar.jpg"},
 
-    {word: "talladega nights",
-    image: "./assets/images/talladeganights.jpg"}]
+    {word: "inception",
+    image: "./assets/images/inception.jpg"}]
 //start game
 var gameStatus = false;
 
@@ -68,10 +68,10 @@ function startGame(){
       displayCurrentWord();
   
       //reset
-      displayImage();
+      //displayImage();
   
 
-      startGame();
+     
 }
 
 //users guessing choices to eliminate possiblity of pressing non letter keys
@@ -115,6 +115,7 @@ function addCorrectLetter(event) {
                 winScore++;
                 //Display new win score.
                 displayWins();
+                
                          
             }
         }
@@ -141,6 +142,7 @@ function addIncorrectLetter(event) {
     displayGuessesLeft();
     if (guessesLeft === 0) {
         displayAnswer();
+        init();
     }
 }
 
@@ -149,6 +151,7 @@ function addIncorrectLetter(event) {
 function displayWins() {
     var winsDisplay = document.querySelector("#wins");
     winsDisplay.textContent = winScore;
+    init();
 }
 
 
@@ -167,20 +170,24 @@ function displayGuessesLeft() {
 //Displays the blanks
 function displayCurrentWord() {
     var currentWordDisplay = document.querySelector("#blank-spaces");
-    currentWordDisplay.innerHTML = answerArray.join(" ");
+    currentWordDisplay.innerHTML =answerArray.join(" ");
 }
 
 //Displays image
 function displayImage() {
     var pictureDisplay = document.querySelector("#movie-img");
     pictureDisplay.src = movieImage;
+    
+    
 }
 
 
 //Reveals answer if user is unable to solve.
 function displayAnswer() {
     var revealedAnswerDisplay = document.querySelector("#reveal-answer");
-    revealedAnswerDisplay.textContent = movieChosen.toUpperCase();
+    revealedAnswerDisplay.textContent = "The movie was " + movieChosen.toUpperCase();
+    
+
 }
 
 
@@ -207,7 +214,7 @@ function init() {
         //If an answer has more than one word, use + as a separator. A space will be displayed when currentWord is displayed. 
         //copied this from slackoverflow but no idea what it means or if it's working 
         if (movieChosen[i] === "+") {
-            answerArray[i] = "&nbsp;";
+            answerArray[i]= " ";
         } else {
             //Replace word answer with "_"s
             answerArray[i] = "_";
@@ -233,8 +240,5 @@ function init() {
     displayImage();
 
 
-
-    
-
-
 }
+
